@@ -1,6 +1,7 @@
 package smallsm
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -264,6 +265,9 @@ func (sst *SmalSSTable) Get(key string) (*slog.Log, bool) {
 	for i := 0; i < indexInterval; i++ {
 		log, err := codec.NewDecoder(sst.file).Decode()
 		if err != nil {
+			if errors.Is(err, io.EOF) {
+				return nil, false
+			}
 			panic(err)
 		}
 		if log.Key == key {
