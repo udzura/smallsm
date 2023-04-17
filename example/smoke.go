@@ -43,6 +43,10 @@ func main() {
 		panic(err)
 	}
 
+	got, _ = db.Get("Test")
+	fmt.Println("Test =", got)
+	got, _ = db.Get("Test2")
+	fmt.Println("Test2 =", got)
 	got, _ = db.Get("Test3")
 	fmt.Println("Test3 =", got)
 
